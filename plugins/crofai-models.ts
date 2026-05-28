@@ -75,6 +75,7 @@ export const CrofAIModelsPlugin: Plugin = async ({ $ }) => {
 
           const reasoningVariants = hasReasoning
             ? {
+                default: { reasoningEffort: "medium" },
                 none: { reasoningEffort: "none" },
                 low: { reasoningEffort: "low" },
                 medium: { reasoningEffort: "medium" },
