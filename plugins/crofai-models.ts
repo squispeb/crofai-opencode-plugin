@@ -72,21 +72,6 @@ export const CrofAIModelsPlugin: Plugin = async ({ $ }) => {
 
         for (const model of models) {
           const hasReasoning = model.reasoning_effort === true
-
-          const baseVariants = {
-            default: {},
-          }
-
-          const reasoningVariants = hasReasoning
-            ? {
-                ...baseVariants,
-                none: { reasoningEffort: "none" },
-                low: { reasoningEffort: "low" },
-                medium: { reasoningEffort: "medium" },
-                high: { reasoningEffort: "high" },
-              }
-            : baseVariants
-
           const cleanName = model.name.includes(": ")
             ? model.name.split(": ").slice(1).join(": ")
             : model.name
@@ -101,7 +86,6 @@ export const CrofAIModelsPlugin: Plugin = async ({ $ }) => {
               reasoning: true,
               interleaved: { field: "reasoning_content" },
             }),
-            variants: reasoningVariants,
           }
         }
 
