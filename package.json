@@ -1,0 +1,31 @@
+{
+  "name": "crofai-opencode-plugin",
+  "version": "1.0.0",
+  "description": "OpenCode plugin for automatic CrofAI model loading",
+  "type": "module",
+  "main": "plugins/crofai-models.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "opencode",
+    "crofai",
+    "plugin",
+    "ai",
+    "llm"
+  ],
+  "author": "squispeb",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/squispeb/crofai-opencode-plugin.git"
+  },
+  "homepage": "https://github.com/squispeb/crofai-opencode-plugin#readme",
+  "bugs": {
+    "url": "https://github.com/squispeb/crofai-opencode-plugin/issues"
+  },
+  "devDependencies": {
+    "@opencode-ai/plugin": "^1.3.3",
+    "typescript": "^5.0.0"
+  }
+}
