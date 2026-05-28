@@ -1,22 +1,24 @@
 # CrofAI Plugin for OpenCode
 
-A plugin for [OpenCode](https://opencode.ai) that automatically loads all available models from the [CrofAI](https://crof.ai) API.
+A plugin suite for [OpenCode](https://opencode.ai) that integrates [CrofAI](https://crof.ai) models and usage tracking.
 
 ## Features
 
-- Automatically fetches and syncs models from CrofAI's `/v1/models` API
-- Supports reasoning models with interleaved thinking (DeepSeek, Kimi, GLM, etc.)
-- Clean model names in the TUI (no redundant provider prefix)
-- API key authentication via file reference
-- Works with OpenCode's variant system for reasoning effort control
+- **Auto-sync models**: Automatically fetches and syncs models from CrofAI's `/v1/models` API
+- **Reasoning support**: Supports reasoning models with interleaved thinking (DeepSeek, Kimi, GLM, etc.)
+- **Clean model names**: No redundant provider prefix in the TUI
+- **Usage tracking**: Check your remaining requests and credits directly from OpenCode
+- **API key authentication**: Secure file-based API key reference
+- **Variant support**: Works with OpenCode's variant system for reasoning effort control
 
 ## Installation
 
-### 1. Copy the plugin file
+### 1. Copy the plugin files
 
 ```bash
 mkdir -p ~/.config/opencode/plugins
 cp plugins/crofai-models.ts ~/.config/opencode/plugins/
+cp plugins/crofai-usage.ts ~/.config/opencode/plugins/
 ```
 
 ### 2. Set up your API key
@@ -46,13 +48,13 @@ Add the plugin to your `~/.config/opencode/opencode.json`:
       }
     }
   },
-  "plugin": ["crofai-models"]
+  "plugin": ["crofai-models", "crofai-usage"]
 }
 ```
 
 ### 4. Restart OpenCode
 
-The plugin will automatically load all available models from the CrofAI API.
+The plugins will automatically load all available models from the CrofAI API and provide the usage tracking tool.
 
 ## Configuration
 
@@ -71,7 +73,7 @@ The plugin will automatically load all available models from the CrofAI API.
       }
     }
   },
-  "plugin": ["crofai-models"]
+  "plugin": ["crofai-models", "crofai-usage"]
 }
 ```
 
@@ -107,7 +109,7 @@ The plugin will automatically load all available models from the CrofAI API.
       "model": "CrofAI/greg-1-mini"
     }
   },
-  "plugin": ["crofai-models"]
+  "plugin": ["crofai-models", "crofai-usage"]
 }
 ```
 
@@ -150,7 +152,34 @@ For subagents, we recommend:
 | execution | `glm-4.7-flash` | Cheapest overall ($0.04/M prompt) |
 | ui | `greg-1-mini` | Good balance ($0.07/M prompt) |
 
-## Usage API
+## Usage Tracking
+
+### Using the Tool
+
+Ask OpenCode to check your usage:
+
+```
+Check my CrofAI usage
+```
+
+Or use the tool directly:
+
+```
+@crofai-usage
+```
+
+The tool will return:
+
+```
+CrofAI Usage:
+
+  450 requests remaining today
+  $12.3456 credits available
+
+For more details, visit: https://crof.ai
+```
+
+### API Reference
 
 Check your remaining usage and credits:
 
@@ -180,7 +209,7 @@ Response:
    cat ~/.config/opencode/crofai-key
    ```
 
-2. Verify the plugin is loaded:
+2. Verify the plugins are loaded:
    ```bash
    opencode debug info
    ```
@@ -206,7 +235,7 @@ If the TUI shows the model but no response, ensure your `opencode.json` has the 
       }
     }
   },
-  "plugin": ["crofai-models"]
+  "plugin": ["crofai-models", "crofai-usage"]
 }
 ```
 
