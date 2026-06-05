@@ -6,10 +6,45 @@ A plugin suite for [OpenCode](https://opencode.ai) that integrates [CrofAI](http
 
 - **Auto-sync models**: Automatically fetches and syncs models from CrofAI's `/v1/models` API
 - **Reasoning support**: Supports reasoning models with interleaved thinking (DeepSeek, Kimi, GLM, etc.)
+- **Auto-generated variants**: OpenCode automatically generates reasoning effort variants (`low`, `medium`, `high`, `max` for deepseek-v4)
 - **Clean model names**: No redundant provider prefix in the TUI
 - **Usage tracking**: Check your remaining requests and credits directly from OpenCode
 - **API key authentication**: Secure file-based API key reference
-- **Variant support**: Works with OpenCode's variant system for reasoning effort control
+
+## Quick Start
+
+```bash
+# Clone the repo
+git clone https://github.com/squispeb/crofai-opencode-plugin.git /tmp/crofai-opencode-plugin
+
+# Copy plugins
+cp /tmp/crofai-opencode-plugin/plugins/*.ts ~/.config/opencode/plugins/
+
+# Set up API key
+mkdir -p ~/.config/opencode
+echo "your-api-key-here" > ~/.config/opencode/crofai-key
+chmod 600 ~/.config/opencode/crofai-key
+```
+
+Then add to your `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "provider": {
+    "CrofAI": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "CrofAI",
+      "options": {
+        "baseURL": "https://crof.ai/v1",
+        "apiKey": "{file:~/.config/opencode/crofai-key}"
+      }
+    }
+  },
+  "plugin": ["crofai-models", "crofai-usage"]
+}
+```
+
+Restart OpenCode to load the plugins.
 
 ## Installation
 
@@ -242,6 +277,15 @@ If the TUI shows the model but no response, ensure your `opencode.json` has the 
 ### Reasoning content not showing
 
 The plugin automatically configures `reasoning: true` and `interleaved: { field: "reasoning_content" }` for models that support it. If you don't see thinking content, verify the model supports reasoning in the model list above.
+
+## Reasoning Variants
+
+The plugin sets `reasoning: true` and `interleaved: { field: "reasoning_content" }` for models that support reasoning. OpenCode automatically generates reasoning effort variants based on the model ID:
+
+- **Standard**: `low`, `medium`, `high`
+- **DeepSeek V4**: `low`, `medium`, `high`, `max`
+
+No manual variant configuration is needed. Use the variant keybind in the TUI to cycle through available variants.
 
 ## License
 
