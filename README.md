@@ -40,7 +40,7 @@ Then add to your `~/.config/opencode/opencode.json`:
       }
     }
   },
-  "plugin": ["crofai-models", "crofai-usage"]
+  "plugin": ["crofai-opencode-plugin"]
 }
 ```
 
@@ -48,7 +48,36 @@ Restart OpenCode to load the plugins.
 
 ## Installation
 
-### 1. Copy the plugin files
+### Option 1: npm (Recommended)
+
+Install globally:
+
+```bash
+npm install -g crofai-opencode-plugin
+```
+
+Then add to your `~/.config/opencode/opencode.json`:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "CrofAI": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "CrofAI",
+      "options": {
+        "baseURL": "https://crof.ai/v1",
+        "apiKey": "{file:~/.config/opencode/crofai-key}"
+      }
+    }
+  },
+  "plugin": ["crofai-opencode-plugin"]
+}
+```
+
+### Option 2: Manual Installation
+
+#### 1. Copy the plugin files
 
 ```bash
 mkdir -p ~/.config/opencode/plugins
@@ -108,7 +137,7 @@ The plugins will automatically load all available models from the CrofAI API and
       }
     }
   },
-  "plugin": ["crofai-models", "crofai-usage"]
+  "plugin": ["crofai-opencode-plugin"]
 }
 ```
 
@@ -144,7 +173,7 @@ The plugins will automatically load all available models from the CrofAI API and
       "model": "CrofAI/greg-1-mini"
     }
   },
-  "plugin": ["crofai-models", "crofai-usage"]
+  "plugin": ["crofai-opencode-plugin"]
 }
 ```
 
@@ -270,7 +299,7 @@ If the TUI shows the model but no response, ensure your `opencode.json` has the 
       }
     }
   },
-  "plugin": ["crofai-models", "crofai-usage"]
+  "plugin": ["crofai-opencode-plugin"]
 }
 ```
 
